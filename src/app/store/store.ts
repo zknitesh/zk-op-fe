@@ -12,10 +12,12 @@ interface ZkOpMetaMaskDataState {
     metaMaskHooks: Web3ReactHooks | undefined;
     network: Network | undefined;
     networkHooks: Web3ReactHooks | undefined;
+    isPollActive: boolean;
     connectMetaMask: () => void;
     disconnectMetaMask: () => void;
     connectNetwork: () => void;
     disconnectNetwork: () => void;
+    setPollState: (pollState: boolean) => void;
 }
 
 export const useStore = create<ZkOpMetaMaskDataState>((set) => ({
@@ -25,7 +27,7 @@ export const useStore = create<ZkOpMetaMaskDataState>((set) => ({
     metaMaskHooks: undefined,
     network: undefined,
     networkHooks: undefined,
-    hooks: undefined,
+    isPollActive: false,
     // methods for manipulating state
     connectMetaMask: () => {
         set((state: ZkOpMetaMaskDataState) => {
@@ -33,9 +35,14 @@ export const useStore = create<ZkOpMetaMaskDataState>((set) => ({
             const [_metaMask, _metaMaskHooks] = initializeConnector<MetaMask>(
                 (actions) => new MetaMask({ actions })
             );
-            state.metaMask = _metaMask;
-            state.metaMaskHooks = _metaMaskHooks;
-            return state;
+            return {
+                zkOpMetaMaskData: state.zkOpMetaMaskData,
+                metaMask: _metaMask,
+                metaMaskHooks: _metaMaskHooks,
+                network: state.network,
+                networkHooks: state.networkHooks,
+                isPollActive: state.isPollActive,
+            };
         });
     },
     disconnectMetaMask: () => {
@@ -45,9 +52,14 @@ export const useStore = create<ZkOpMetaMaskDataState>((set) => ({
             } else {
                 state.metaMask?.resetState();
             }
-            state.metaMask = undefined;
-            state.metaMaskHooks = undefined;
-            return state;
+            return {
+                zkOpMetaMaskData: state.zkOpMetaMaskData,
+                metaMask: undefined,
+                metaMaskHooks: undefined,
+                network: state.network,
+                networkHooks: state.networkHooks,
+                isPollActive: state.isPollActive,
+            };
         });
     },
     connectNetwork: () => {
@@ -56,9 +68,14 @@ export const useStore = create<ZkOpMetaMaskDataState>((set) => ({
             const [_network, _networkHooks] = initializeConnector<Network>(
                 (actions) => new Network({ actions, urlMap: URLS })
             );
-            state.network = _network;
-            state.networkHooks = _networkHooks;
-            return state;
+            return {
+                zkOpMetaMaskData: state.zkOpMetaMaskData,
+                metaMask: state.metaMask,
+                metaMaskHooks: state.metaMaskHooks,
+                network: _network,
+                networkHooks: _networkHooks,
+                isPollActive: state.isPollActive,
+            };
         });
     },
     disconnectNetwork: () => {
@@ -68,9 +85,27 @@ export const useStore = create<ZkOpMetaMaskDataState>((set) => ({
             } else {
                 state.network?.resetState();
             }
-            state.network = undefined;
-            state.networkHooks = undefined;
-            return state;
+            return {
+                zkOpMetaMaskData: state.zkOpMetaMaskData,
+                metaMask: state.metaMask,
+                metaMaskHooks: state.metaMaskHooks,
+                network: undefined,
+                networkHooks: undefined,
+                isPollActive: state.isPollActive,
+            };
+        });
+    },
+    setPollState: (pollState: boolean) => {
+        set((state: ZkOpMetaMaskDataState) => {
+            console.log("Poll Active:", pollState);
+            return {
+                zkOpMetaMaskData: state.zkOpMetaMaskData,
+                metaMask: state.metaMask,
+                metaMaskHooks: state.metaMaskHooks,
+                network: state.network,
+                networkHooks: state.networkHooks,
+                isPollActive: pollState,
+            };
         });
     },
 }));

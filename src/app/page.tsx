@@ -1,10 +1,16 @@
+"use client";
 import Provider from "./components/provider";
 import MetaMaskCard from "./components/connectorCards/MetaMaskCard";
-import NetworkCard from "./components/connectorCards/NetworkCard";
 import Link from "next/link";
+import { useStore } from "./store/store";
+import { useEffect } from "react";
 
 export default function Home() {
-    console.log("Home called");
+    console.log("RENDERING HOME...");
+    const metaMask = useStore((state) => state.metaMask);
+    const metaMaskHooks = useStore((state) => state.metaMaskHooks);
+    const isPollActive = useStore((state) => state.isPollActive);
+
     return (
         <>
             <Provider></Provider>
@@ -18,10 +24,16 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-                    <MetaMaskCard />
+                    {metaMask && metaMaskHooks && (
+                        <MetaMaskCard
+                            metaMask={metaMask}
+                            metaMaskHooks={metaMaskHooks}
+                        />
+                    )}
                 </div>
+
                 <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-                    <Link href={"/poll"}>POLL</Link>
+                    {isPollActive && <Link href={"/poll"}>POLL</Link>}
                 </div>
                 {/* <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
                     <NetworkCard />

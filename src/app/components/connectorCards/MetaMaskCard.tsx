@@ -8,15 +8,12 @@ import { useStore } from "../../store/store";
 import { Web3ReactHooks } from "@web3-react/core";
 import { MetaMask } from "@web3-react/metamask";
 
-export default function MetaMaskCard() {
-    console.log("RENDERING METAMASKCARD...");
-    const metaMaskHooks: Web3ReactHooks | undefined =
-        useStore.getState().metaMaskHooks;
-    const metaMask: MetaMask | undefined = useStore.getState().metaMask;
-    if (!metaMaskHooks || !metaMask) {
-        console.error("Metamask Hooks or MetaMask are not initialised");
-        return null;
-    }
+interface Props {
+    metaMask: MetaMask;
+    metaMaskHooks: Web3ReactHooks;
+}
+
+export default function MetaMaskCard({ metaMask, metaMaskHooks }: Props) {
     const {
         useChainId,
         useAccounts,
@@ -35,16 +32,19 @@ export default function MetaMaskCard() {
     const ENSNames: undefined[] | (string | null)[] = useENSNames();
 
     const [error, setError] = useState<Error | undefined>(undefined);
-
+    const setPollState = useStore((state) => state.setPollState);
     // attempt to connect eagerly on mount
     useEffect(() => {
-        void useStore
+        useStore
             .getState()
             .metaMask?.connectEagerly()
             .catch(() => {
                 console.debug("Failed to connect eagerly to metamask");
             });
     }, []);
+    useEffect(() => {
+        setPollState(isActive);
+    }, [isActive]);
     return (
         <Card
             connector={metaMask}

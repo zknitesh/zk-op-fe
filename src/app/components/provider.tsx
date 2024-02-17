@@ -19,17 +19,25 @@ function Child() {
 export default function Provider() {
     console.log("RENDERING PROVIDER...");
     const connectMetaMask = useStore((state) => state.connectMetaMask);
-    connectMetaMask();
     const connectNetwork = useStore((state) => state.connectNetwork);
-    connectNetwork();
     const metaMask = useStore((state) => state.metaMask);
     const network = useStore((state) => state.network);
     const metaMaskHooks = useStore((state) => state.metaMaskHooks);
     const networkHooks = useStore((state) => state.networkHooks);
+    const [isLoading, setIsLoading] = useState(true);
 
+    useEffect(() => {
+        Promise.all([connectMetaMask(), connectNetwork()]).then(() =>
+            setIsLoading(false)
+        );
+    }, [connectMetaMask, connectNetwork]);
+
+    if (isLoading) {
+        return <div>Loading Web3 connectors...</div>;
+    }
     if (!metaMask || !metaMaskHooks || !network || !networkHooks) {
-        console.error("Failed to initialize connectors");
-        return <div>Error loading connectors</div>;
+        console.error("Connectors not initialised");
+        return <div>Loading...</div>;
     }
     const connectors: [MetaMask | Network, Web3ReactHooks][] = [
         [metaMask, metaMaskHooks],

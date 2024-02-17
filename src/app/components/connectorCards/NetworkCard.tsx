@@ -5,19 +5,16 @@ import { useEffect, useState } from "react";
 import { URLS, CHAINS } from "../../store/chains";
 import { Card } from "../Card";
 import { Web3ReactHooks } from "@web3-react/core";
-import { useStore } from "../../store/store";
 import { Network } from "@web3-react/network";
+
+interface Props {
+    network: Network;
+    networkHooks: Web3ReactHooks;
+}
 
 const CHAIN_IDS = Object.keys(URLS).map(Number);
 
-export default function NetworkCard() {
-    const network: Network | undefined = useStore.getState().network;
-    const networkHooks: Web3ReactHooks | undefined =
-        useStore.getState().networkHooks;
-    if (!networkHooks || !network) {
-        console.error("Network Hooks are not initialised");
-        return null;
-    }
+export default function NetworkCard({ network, networkHooks }: Props) {
     const {
         useChainId,
         useAccounts,
