@@ -25,7 +25,8 @@ interface ExtendedChainInformation extends BasicChainInformation {
 function isExtendedChainInformation(
     chainInformation: BasicChainInformation | ExtendedChainInformation
 ): chainInformation is ExtendedChainInformation {
-    return !!(chainInformation as ExtendedChainInformation).nativeCurrency;
+    // return !!(chainInformation as ExtendedChainInformation).nativeCurrency;
+    return false;
 }
 
 export function getAddChainParameters(
@@ -33,14 +34,17 @@ export function getAddChainParameters(
 ): AddEthereumChainParameter | number {
     const chainInformation = CHAINS[chainId];
     if (isExtendedChainInformation(chainInformation)) {
-        return {
+        const extendedChainInformation: AddEthereumChainParameter = {
             chainId,
             chainName: chainInformation.name,
             nativeCurrency: chainInformation.nativeCurrency,
             rpcUrls: chainInformation.urls,
             blockExplorerUrls: chainInformation.blockExplorerUrls,
         };
+        console.log("getAddChainParameters", extendedChainInformation);
+        return extendedChainInformation;
     } else {
+        console.log("getAddChainParameters", chainId);
         return chainId;
     }
 }
@@ -65,11 +69,11 @@ type ChainConfig = {
 
 export const MAINNET_CHAINS: ChainConfig = {
     1: {
-        urls: [
-            getAlchemyUrlFor("mainnet") ?? "",
-            getInfuraUrlFor("mainnet") ?? "",
-            "https://cloudflare-eth.com",
-        ].filter(Boolean),
+        urls: ["https://eth.llamarpc.com"],
+        //     getAlchemyUrlFor("mainnet") ?? "",
+        //     getInfuraUrlFor("mainnet") ?? "",
+        //     // "https://cloudflare-eth.com",
+        // ].filter(Boolean),
         name: "Mainnet",
     },
     534352: {
@@ -90,7 +94,7 @@ export const MAINNET_CHAINS: ChainConfig = {
 
 export const TESTNET_CHAINS: ChainConfig = {
     11155111: {
-        urls: [getAlchemyUrlFor("sepolia") ?? ""].filter(Boolean),
+        urls: ["https://rpc.notadegen.com/eth/sepolia"].filter(Boolean),
         name: "Sepolia",
     },
     534351: {
@@ -115,9 +119,9 @@ export const URLS: { [chainId: number]: string[] } = Object.keys(
 ).reduce<{ [chainId: number]: string[] }>((accumulator, chainId) => {
     const validURLs: string[] = CHAINS[Number(chainId)].urls;
 
-    if (validURLs.length) {
-        accumulator[Number(chainId)] = validURLs;
-    }
+    // if (validURLs.length) {
+    accumulator[Number(chainId)] = validURLs;
+    // }
 
     return accumulator;
 }, {});

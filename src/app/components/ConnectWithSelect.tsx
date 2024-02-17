@@ -89,14 +89,17 @@ export function ConnectWithSelect({
                     setError(undefined);
                     return;
                 }
+                console.log("Activating the network");
+                await connector.activate(desiredChainId);
+                // if (connector instanceof Network) {
+                //
 
-                if (connector instanceof Network) {
-                    await connector.activate(desiredChainId);
-                } else {
-                    await connector.activate(
-                        getAddChainParameters(desiredChainId)
-                    );
-                }
+                // } else {
+                //     console.log("Activating network with metamask");
+                //     await connector.activate(
+                //         getAddChainParameters(desiredChainId)
+                //     );
+                // }
 
                 setError(undefined);
             } catch (error: unknown) {
@@ -131,8 +134,10 @@ export function ConnectWithSelect({
                     <button
                         onClick={() => {
                             if (connector?.deactivate) {
+                                console.log("Deactivating connector...");
                                 void connector.deactivate();
                             } else {
+                                console.log("Resetting connector connector...");
                                 void connector.resetState();
                             }
                             setDesiredChainId(undefined);
