@@ -36,6 +36,7 @@ export function Card({
     accounts,
     provider,
 }: Props) {
+    console.log("RENDERING CARD.............");
     return (
         <div
             style={{

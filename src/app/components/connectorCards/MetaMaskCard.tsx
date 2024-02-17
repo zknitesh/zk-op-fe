@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { hooks, metaMask } from "../../connectors/metaMask";
 import { Card } from "../Card";
+import { BaseProvider, Web3Provider } from "@ethersproject/providers";
 
 const {
     useChainId,
@@ -15,14 +16,15 @@ const {
 } = hooks;
 
 export default function MetaMaskCard() {
-    const chainId = useChainId();
-    const accounts = useAccounts();
-    const isActivating = useIsActivating();
+    console.log("RENDERING METAMASKCARD...");
+    const chainId: number | undefined = useChainId();
+    const accounts: string[] | undefined = useAccounts();
+    const isActivating: boolean = useIsActivating();
 
-    const isActive = useIsActive();
+    const isActive: boolean = useIsActive();
 
-    const provider = useProvider();
-    const ENSNames = useENSNames(provider);
+    const provider: Web3Provider | undefined = useProvider();
+    const ENSNames: undefined[] | (string | null)[] = useENSNames();
 
     const [error, setError] = useState<Error | undefined>(undefined);
 

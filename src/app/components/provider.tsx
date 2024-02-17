@@ -22,6 +22,7 @@ function Child() {
 }
 
 export default function Provider() {
+    console.log("Provider is called");
     return (
         <Web3ReactProvider connectors={connectors}>
             <Child />

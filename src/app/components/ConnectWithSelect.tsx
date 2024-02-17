@@ -2,7 +2,7 @@ import type { Web3ReactHooks } from "@web3-react/core";
 import type { MetaMask } from "@web3-react/metamask";
 import { Network } from "@web3-react/network";
 import { useCallback, useEffect, useState } from "react";
-import { CHAINS, getAddChainParameters } from "../chains";
+import { CHAINS } from "../chains";
 
 function ChainSelect({
     activeChainId,
@@ -14,7 +14,7 @@ function ChainSelect({
     chainIds: number[];
 }) {
     console.log(
-        `Chain Select activeChainId = ${activeChainId}, chainIds = ${chainIds}, CHAINS = ${JSON.stringify(
+        `RENDERING CHAINSELECT... activeChainId = ${activeChainId}, chainIds = ${chainIds}, CHAINS = ${JSON.stringify(
             CHAINS
         )}`
     );
