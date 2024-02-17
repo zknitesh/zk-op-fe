@@ -2,7 +2,7 @@ import type { Web3ReactHooks } from "@web3-react/core";
 import type { MetaMask } from "@web3-react/metamask";
 import { Network } from "@web3-react/network";
 import { useCallback, useEffect, useState } from "react";
-import { CHAINS } from "../chains";
+import { CHAINS } from "../store/chains";
 
 function ChainSelect({
     activeChainId,

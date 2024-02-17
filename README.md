@@ -30,3 +30,9 @@ yarn add @ethersproject/providers
 yarn add @web3-react/metamask
 yarn add @web3-react/network
 ```
+
+5. State Management
+
+```
+npm install zustand
+```

@@ -6,14 +6,9 @@ import {
 } from "@web3-react/core";
 import type { MetaMask } from "@web3-react/metamask";
 import type { Network } from "@web3-react/network";
-import { hooks as metaMaskHooks, metaMask } from "../connectors/metaMask";
-import { hooks as networkHooks, network } from "../connectors/network";
 import { getName } from "../utils";
-
-const connectors: [MetaMask | Network, Web3ReactHooks][] = [
-    [metaMask, metaMaskHooks],
-    [network, networkHooks],
-];
+import { useStore } from "../store/store";
+import { useEffect, useState } from "react";
 
 function Child() {
     const { connector } = useWeb3React();
@@ -22,7 +17,24 @@ function Child() {
 }
 
 export default function Provider() {
-    console.log("Provider is called");
+    console.log("RENDERING PROVIDER...");
+    const connectMetaMask = useStore((state) => state.connectMetaMask);
+    connectMetaMask();
+    const connectNetwork = useStore((state) => state.connectNetwork);
+    connectNetwork();
+    const metaMask = useStore((state) => state.metaMask);
+    const network = useStore((state) => state.network);
+    const metaMaskHooks = useStore((state) => state.metaMaskHooks);
+    const networkHooks = useStore((state) => state.networkHooks);
+
+    if (!metaMask || !metaMaskHooks || !network || !networkHooks) {
+        console.error("Failed to initialize connectors");
+        return <div>Error loading connectors</div>;
+    }
+    const connectors: [MetaMask | Network, Web3ReactHooks][] = [
+        [metaMask, metaMaskHooks],
+        [network, networkHooks],
+    ];
     return (
         <Web3ReactProvider connectors={connectors}>
             <Child />

@@ -1,4 +1,9 @@
 import type { AddEthereumChainParameter } from "@web3-react/types";
+import {
+    BasicChainInformation,
+    ChainConfig,
+    ExtendedChainInformation,
+} from "../model/web3.models";
 
 const ETH: AddEthereumChainParameter["nativeCurrency"] = {
     name: "Ether",
@@ -11,16 +16,6 @@ const MATIC: AddEthereumChainParameter["nativeCurrency"] = {
     symbol: "MATIC",
     decimals: 18,
 };
-
-interface BasicChainInformation {
-    urls: string[];
-    name: string;
-}
-
-interface ExtendedChainInformation extends BasicChainInformation {
-    nativeCurrency: AddEthereumChainParameter["nativeCurrency"];
-    blockExplorerUrls: AddEthereumChainParameter["blockExplorerUrls"];
-}
 
 function isExtendedChainInformation(
     chainInformation: BasicChainInformation | ExtendedChainInformation
@@ -61,10 +56,6 @@ const getAlchemyUrlFor = (network: string) => {
               network
           )
         : undefined;
-};
-
-type ChainConfig = {
-    [chainId: number]: BasicChainInformation | ExtendedChainInformation;
 };
 
 export const MAINNET_CHAINS: ChainConfig = {
