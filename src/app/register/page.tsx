@@ -30,8 +30,8 @@ export default function RegisterPoll() {
             userSecret: formData.userSecret,
             systemSecret: formData.systemSecret,
         };
-        const proof = await noir.generateFinalProof(input);
-        console.log(proof);
+        const { witness, returnValue } = await noir.execute(input);
+        console.log(returnValue);
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
