@@ -36,3 +36,9 @@ yarn add @web3-react/network
 ```
 npm install zustand
 ```
+
+6. Install noir
+
+```
+npm i @noir-lang/backend_barretenberg@0.23.0 @noir-lang/noir_js@0.23.0
+```

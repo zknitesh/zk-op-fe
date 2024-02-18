@@ -17,6 +17,16 @@
   resolved "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
+"@aztec/bb.js@0.19.0":
+  version "0.19.0"
+  resolved "https://registry.npmjs.org/@aztec/bb.js/-/bb.js-0.19.0.tgz"
+  integrity sha512-I28AdggGl/5FjOEdOCYXviH0TnQUjEl2B95sux1kVJj8MiwD1rmx/tuaQBvUwRKe3hg/4C1KQRYWFn4vwlhg3A==
+  dependencies:
+    comlink "^4.4.1"
+    commander "^10.0.1"
+    debug "^4.3.4"
+    tslib "^2.4.0"
+
 "@babel/runtime@^7.23.2":
   version "7.23.9"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.9.tgz"
@@ -386,6 +396,41 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
+
+"@noir-lang/acvm_js@0.39.0":
+  version "0.39.0"
+  resolved "https://registry.npmjs.org/@noir-lang/acvm_js/-/acvm_js-0.39.0.tgz"
+  integrity sha512-Y77qyfamkYSIzzKFkewTwExzTvxYcRd1XBqo950ti4uKMdu18GthkOssqC7CGacwx5PdrdOGFGRJbVtjoXeKIg==
+
+"@noir-lang/backend_barretenberg@^0.23.0":
+  version "0.23.0"
+  resolved "https://registry.npmjs.org/@noir-lang/backend_barretenberg/-/backend_barretenberg-0.23.0.tgz"
+  integrity sha512-amehMEE8kEMEbuxvPT1H9BwVQyEFFip6ajHWhgJjw/PkNB8tBzP+ekVrcEvxVerAKNikfzCEWS/kV7CEWcQNzA==
+  dependencies:
+    "@aztec/bb.js" "0.19.0"
+    "@noir-lang/types" "0.23.0"
+    fflate "^0.8.0"
+
+"@noir-lang/noir_js@^0.23.0":
+  version "0.23.0"
+  resolved "https://registry.npmjs.org/@noir-lang/noir_js/-/noir_js-0.23.0.tgz"
+  integrity sha512-eblqgm0PjgptYG+TkK2Dmp/Y2fEhjM5sqMam+QUQHn/2WmC+8/LO2a0FQU0t1432BGCII6/TfojQzgQobuXJAw==
+  dependencies:
+    "@noir-lang/acvm_js" "0.39.0"
+    "@noir-lang/noirc_abi" "0.23.0"
+    "@noir-lang/types" "0.23.0"
+
+"@noir-lang/noirc_abi@0.23.0":
+  version "0.23.0"
+  resolved "https://registry.npmjs.org/@noir-lang/noirc_abi/-/noirc_abi-0.23.0.tgz"
+  integrity sha512-MYBkj6hSpiimlcBmX6n/hY+y2Kk39Qh8qre5c41GZPvmC88f7MqhAdDTSsfrFnNg1pvpY5UX6/G1D8jEkT11qA==
+
+"@noir-lang/types@0.23.0":
+  version "0.23.0"
+  resolved "https://registry.npmjs.org/@noir-lang/types/-/types-0.23.0.tgz"
+  integrity sha512-jgA4thao714WHiXVE3KS7Y2vQnH3gvsVM1cO1kQsihgmqX5VO+Kk6bI3Yck9HUvAqgcjJgSeOeBtbdTYSzjzkw==
+  dependencies:
+    "@noir-lang/noirc_abi" "0.23.0"
 
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
@@ -884,6 +929,16 @@ color-name@~1.1.4:
   version "1.1.4"
   resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
+
+comlink@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.npmjs.org/comlink/-/comlink-4.4.1.tgz"
+  integrity sha512-+1dlx0aY5Jo1vHy/tSsIGpSkN4tS9rZSW8FIhG0JH/crs9wwweswIo/POr451r7bZww3hFbPAKnTpimzL/mm4Q==
+
+commander@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.npmjs.org/commander/-/commander-10.0.1.tgz"
+  integrity sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==
 
 commander@^4.0.0:
   version "4.1.1"
@@ -1409,6 +1464,11 @@ fastq@^1.6.0:
   integrity sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==
   dependencies:
     reusify "^1.0.4"
+
+fflate@^0.8.0:
+  version "0.8.2"
+  resolved "https://registry.npmjs.org/fflate/-/fflate-0.8.2.tgz"
+  integrity sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
@@ -2830,12 +2890,7 @@ tsconfig-paths@^3.15.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@^2.4.0:
-  version "2.6.2"
-  resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz"
-  integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
-
-tslib@2.4.0:
+tslib@^2.4.0, tslib@2.4.0:
   version "2.4.0"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
